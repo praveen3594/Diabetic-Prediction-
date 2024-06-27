@@ -102,7 +102,7 @@ def calculate_dpf3(num_relatives, relationships):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('Diabetic Prediction/templates/index.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -112,13 +112,13 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
         if not (name and email and password and age):
-            return render_template('register.html', error='All fields are required.')
+            return render_template('Diabetic Prediction/templates/register.html', error='All fields are required.')
         try:
             insert_user(name, age, email, bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8'))
             return redirect('/login')
         except:
-            return render_template('register.html', error='An error occurred while registering. Please try again.')
-    return render_template('register.html')
+            return render_template('Diabetic Prediction/templates/register.html', error='An error occurred while registering. Please try again.')
+    return render_template('Diabetic Prediction/templates/register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -129,8 +129,8 @@ def login():
             session['email'] = email
             return redirect('/menu')
         else:
-            return render_template('login.html', error='Invalid user')
-    return render_template('login.html')
+            return render_template('Diabetic Prediction/templates/login.html', error='Invalid user')
+    return render_template('Diabetic Prediction/templates/login.html')
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
@@ -140,8 +140,8 @@ def admin():
         if name == ADMIN_USERNAME and password == ADMIN_PASSWORD:
             return redirect('/details')
         else:
-            return render_template('admin.html', error='Invalid user')
-    return render_template('admin.html')
+            return render_template('Diabetic Prediction/templates/admin.html', error='Invalid user')
+    return render_template('Diabetic Prediction/templates/admin.html')
 
 @app.route('/details')
 def details():
@@ -150,12 +150,12 @@ def details():
     c.execute("SELECT * FROM person")  # Assuming 'person' is the table name
     data = c.fetchall()
     conn.close()
-    return render_template('result.html', data=data)
+    return render_template('Diabetic Prediction/templates/result.html', data=data)
 
 @app.route('/menu')
 def menu():
     if session['email']:
-        return render_template('menu.html')
+        return render_template('Diabetic Prediction/templates/menu.html')
     
     return redirect('/login')
 
@@ -166,7 +166,7 @@ def calculate_dpf():
         # Render template with DPF value
         return redirect(url_for('calculate', num_relatives=num_relatives))
     else:
-        return render_template('calculate_dpf.html')
+        return render_template('Diabetic Prediction/templates/calculate_dpf.html')
 
 @app.route('/calculate/<int:num_relatives>', methods=['GET', 'POST'])
 def calculate(num_relatives):
@@ -177,17 +177,17 @@ def calculate(num_relatives):
         dpf = calculate_dpf3(num_relatives, relationships)
         return redirect(url_for('dpfresult', dpf=dpf))
     else:
-        return render_template('calculate.html', num_relatives=num_relatives)
+        return render_template('Diabetic Prediction/templates/calculate.html', num_relatives=num_relatives)
 
 @app.route('/dpfresult/<dpf>')
 def dpfresult(dpf):
-    return render_template('dpfresult.html', dpf=dpf)
+    return render_template('Diabetic Prediction/templates/dpfresult.html', dpf=dpf)
 
 @app.route('/home')
 def home():
     if 'email' in session:
         user = get_user_by_email(session['email'])
-        return render_template('home.html', user=user)
+        return render_template('Diabetic Prediction/templates/home.html', user=user)
     return redirect('/login')
 
 @app.route('/predictdata', methods=['GET','POST'])
@@ -205,7 +205,7 @@ def predict_datapoint():
         Name = request.form.get('name')
         
         new_data=scaler.transform([[Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age]])
-        predict=model.predict(new_data)
+        predict=Diabetic Prediction.model.predict(new_data)
        
         if predict[0] ==1 :
             result = 'Diabetic'
@@ -230,10 +230,10 @@ def predict_datapoint():
         conn = sqlite3.connect('database1.db')
         cursor = conn.cursor()
             
-        return render_template('single_prediction.html',result=result,instructions=instructions)
+        return render_template('Diabetic Prediction/templatessingle_prediction.html',result=result,instructions=instructions)
 
     else: 
-        return render_template('home.html')
+        return render_template('Diabetic Prediction/templateshome.html')
 
 @app.route('/logout')
 def logout():
