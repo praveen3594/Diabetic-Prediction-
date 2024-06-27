@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>ML API</title>
+
+</head>
+
+<body>
+ <div class="login">
+	<h1>Diabetes Prediction</h1>
+    <form action="{{ url_for('predict_datapoint')}}" method="post">
+      <input type="text" name="Pregnancies" placeholder="Pregnancies" required="required" class="entry" />
+      <br><br>
+    	<input type="text" name="Glucose" placeholder="Glucose" required="required" class="entry" />
+      <br><br>
+        <input type="text" name="BloodPressure" placeholder="BloodPressure" required="required" class="entry" />
+        <br><br>
+        <input type="text" name="SkinThickness" placeholder="SkinThickness" required="required" class="entry" />
+        <br><br>
+        <input type="text" name="Insulin" placeholder="Insulin" required="required" class="entry" />
+        <br><br>
+        <input type="text" name="BMI" placeholder="BMI" required="required" class="entry" />
+        <br><br>
+        <input type="text" name="DiabetesPedigreeFunction" placeholder="DiabetesPedigreeFunction" required="required" class="entry" />
+        <br><br>
+        <input type="text" name="Age" placeholder="Age" required="required" class="entry"/>
+        <br><br><br>
+
+
+        <button id="but2" type="submit">Predict</button>
+    </form>
+<body>
+
+   <br>
+   <br>
+
+
+ </div>
+ {{result}}
+ <style>
+  .login{
+    background-color: rgb(157, 208, 244);
+    padding-left: 3cm;
+    padding-top: 1cm;
+    padding-bottom: .5cm;
+    width: 10cm;
+    margin-left: 20%;
+    margin-top: 1cm;
+    border-color: rgb(56, 56, 63);
+    border-width: 5px;
+    border-style: inset;
+    
+
+  }
+  #but2{
+    background-color: rgb(231, 33, 33);
+    color: aliceblue;
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 5px;
+    border-color: rgb(10, 0, 0);
+    border-width: 2px;
+    font-size: 20px;
+    margin-left: 85px;
+  }
+  .entry{
+    height: 30px;
+    width: 250px;
+    padding-left: 20px;
+    font-size: 17px;
+
+
+  }
+ </style>
+ 
+
+</body>
+</html>
